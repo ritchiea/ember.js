@@ -36,6 +36,17 @@ test("should raise an exception when modifying watched properties on a destroyed
   }
 });
 
+test("should not allow META_KEY to be set on destroyed objects", function() {
+  var obj = Ember.Object.create();
+
+  Ember.run(function() {
+    obj.destroy();
+  });
+
+  Ember.meta(obj).foo = "bar";
+  equal(Ember.meta(obj).foo, undefined, "foo meta property key cannot be set for destroyed object");
+});
+
 test("observers should not fire after an object has been destroyed", function() {
   var count = 0;
   var obj = Ember.Object.createWithMixins({

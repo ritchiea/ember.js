@@ -196,6 +196,7 @@ if (isDefinePropertySimulated) {
 Ember.meta = function meta(obj, writable) {
 
   var ret = obj[META_KEY];
+  if (obj.isDestroyed) return EMPTY_META;
   if (writable===false) return ret || EMPTY_META;
 
   if (!ret) {
